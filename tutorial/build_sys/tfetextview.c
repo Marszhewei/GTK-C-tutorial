@@ -1,7 +1,6 @@
 #include "tfetextview.h"
 
-struct _TfeTextView
-{
+struct _TfeTextView {
     GtkTextView parent;
     GFile *file;
 };

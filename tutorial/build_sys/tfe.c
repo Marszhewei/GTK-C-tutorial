@@ -1,7 +1,6 @@
 #include "tfetextview.h"
 
-static void
-app_activate(GApplication *app, gpointer user_data)
+static void app_activate(GApplication *app, gpointer user_data)
 {
     g_print("You need a filename argument.\n");
 }
@@ -26,10 +25,8 @@ static void app_open(GApplication *app, GFile **files,
     gtk_window_set_application(GTK_WINDOW(win), GTK_APPLICATION(app));
     nb = GTK_WIDGET(gtk_builder_get_object(build, "nb"));
     g_object_unref(build);
-    for (int i = 0; i < n_files; i++)
-    {
-        if (g_file_load_contents(files[i], NULL, &contents, &length, NULL, NULL))
-        {
+    for (int i = 0; i < n_files; i++) {
+        if (g_file_load_contents(files[i], NULL, &contents, &length, NULL, NULL)) {
             scr = gtk_scrolled_window_new();
             tv = tfe_text_view_new();
             tb = gtk_text_view_get_buffer(GTK_TEXT_VIEW(tv));
@@ -46,8 +43,7 @@ static void app_open(GApplication *app, GFile **files,
             g_object_set(nbp, "tab-expand", TRUE, NULL);
             g_free(filename);
         }
-        else if ((filename = g_file_get_path(files[i])) != NULL)
-        {
+        else if ((filename = g_file_get_path(files[i])) != NULL) {
             g_print("No such file: %s.\n", filename);
             g_free(filename);
         }
@@ -55,9 +51,7 @@ static void app_open(GApplication *app, GFile **files,
             g_print("No valid file is given\n");
     }
     if (gtk_notebook_get_n_pages(GTK_NOTEBOOK(nb)) > 0)
-    {
         gtk_widget_show(win);
-    }
     else
         gtk_window_destroy(GTK_WINDOW(win));
 }
